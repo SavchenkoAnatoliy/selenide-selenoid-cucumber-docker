@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group 'org.example'
@@ -16,14 +17,36 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+allure {
+    autoconfigure = true
+    version = '2.21.0'
+
+    useJUnit5 {
+        version = "2.21.0"
+    }
+}
+
 dependencies {
+// JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    testImplementation 'io.cucumber:cucumber-java:7.1.0'
+    testImplementation 'org.junit.platform:junit-platform-suite:1.7.0'
+
+
+// Cucumber (обновлённые версии)
+    testImplementation 'io.cucumber:cucumber-java:7.13.0'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.13.0'
+
+    // Selenide + WebDriverManager
     testImplementation 'com.codeborne:selenide:6.13.0'
-    testImplementation 'io.cucumber:cucumber-junit:7.1.0'
     testImplementation 'io.github.bonigarcia:webdrivermanager:5.7.0'
+
+    // Allure
+    testImplementation 'io.qameta.allure:allure-cucumber7-jvm:2.21.0'
+    testImplementation 'io.qameta.allure:allure-junit5:2.21.0'
 }
+
+
 
 test {
     useJUnitPlatform()

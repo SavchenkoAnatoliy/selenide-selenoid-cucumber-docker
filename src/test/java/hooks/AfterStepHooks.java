@@ -7,8 +7,8 @@ import io.cucumber.java.Scenario;
 
 public class AfterStepHooks {
     // Действия совершаемые после каждого шага
-    @AfterStep
-    public void takeScreenShotAfterStep(Scenario scenario) {
-        Selenide.screenshot(System.currentTimeMillis() + "steps");
-    }
+//    @AfterStep
+//    public void takeScreenShotAfterStep(Scenario scenario) {
+//        Selenide.screenshot(System.currentTimeMillis() + "steps");
+//    }
 }
