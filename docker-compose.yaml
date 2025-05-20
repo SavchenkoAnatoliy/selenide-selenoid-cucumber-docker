@@ -18,7 +18,7 @@ services:
     ports:
       - "4444:4444"
     networks:
-      - testnet
+      - selenet
 
   jenkins:
     image: jenkins/jenkins:lts
@@ -28,7 +28,7 @@ services:
     ports:
       - "8000:8080"
     networks:
-      - testnet
+      - selenet
 
 networks:
   testnet:
