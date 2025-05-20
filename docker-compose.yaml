@@ -2,6 +2,8 @@ services:
   selenoid:
     image: aerokube/selenoid:latest-release
     container_name: selenoid
+    ports:
+      - "4444:4444"
     volumes:
       - "./init/selenoid:/etc/selenoid"
       - "./work/selenoid/video:/opt/selenoid/video"
@@ -13,12 +15,13 @@ services:
       [
         "-conf", "/etc/selenoid/browsers.json",
         "-video-output-dir", "/opt/selenoid/video",
-        "-log-output-dir", "/opt/selenoid/logs"
+        "-log-output-dir", "/opt/selenoid/logs",
+        "-container-network", "bridge"
       ]
-    ports:
-      - "4444:4444"
     networks:
-      - selenet
+      - default
+
+
 
   jenkins:
     image: jenkins/jenkins:lts
@@ -28,8 +31,8 @@ services:
     ports:
       - "8000:8080"
     networks:
-      - selenet
+      - default
 
 networks:
-  selenet:
+  default:
     driver: bridge
