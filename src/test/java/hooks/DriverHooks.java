@@ -49,7 +49,7 @@ public class DriverHooks {
     @Before
     public void setUp() {
         // URL of your local or remote Selenoid
-        Configuration.remote = "http://selenoid:4444/wd/hub";
+        Configuration.remote = "http://localhost:4444/wd/hub";
         Configuration.browser = "chrome";
         Configuration.browserVersion = "128.0";
         Configuration.browserSize = "1920x1080";
