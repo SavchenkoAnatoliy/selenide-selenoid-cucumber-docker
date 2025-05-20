@@ -7,8 +7,8 @@
         "port": "4444",
         "path": "/",
         "tmpfs": {"/tmp": "size=512m"},
-        "env": ["TZ=UTC"],
-        "network": "bridge"
+        "hosts": ["x01.aidata.io:127.0.0.1"],
+        "env": ["TZ=UTC"]
       }
     }
   }

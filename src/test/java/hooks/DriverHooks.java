@@ -53,7 +53,7 @@ public class DriverHooks {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "128.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 30000;
+        Configuration.timeout = 40000;
         Configuration.headless = false; // Needed to view VNC session
 
         DesiredCapabilities capabilities = new DesiredCapabilities();

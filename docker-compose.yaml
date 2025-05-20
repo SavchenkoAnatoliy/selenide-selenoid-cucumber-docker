@@ -18,8 +18,7 @@ services:
         "-log-output-dir", "/opt/selenoid/logs",
         "-container-network", "bridge"
       ]
-    networks:
-      - default
+    network_mode: bridge
 
 
 
@@ -30,9 +29,12 @@ services:
       - ./work/jenkins:/var/jenkins_home
     ports:
       - "8000:8080"
-    networks:
-      - default
+    network_mode: bridge
 
-networks:
-  default:
-    driver: bridge
+  jira:
+    image: atlassian/jira-software
+    volumes:
+      - "./work/jira:/var/atlassian/application-data/jira"
+    ports:
+      - "9999:8080"
+    network_mode: bridge
