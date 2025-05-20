@@ -31,5 +31,5 @@ services:
       - selenet
 
 networks:
-  testnet:
+  selenet:
     driver: bridge

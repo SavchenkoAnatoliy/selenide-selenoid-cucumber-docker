@@ -8,7 +8,7 @@
         "path": "/",
         "tmpfs": {"/tmp": "size=512m"},
         "env": ["TZ=UTC"],
-        "network": "bridge"
+        "network": "selenet"
       }
     }
   }
