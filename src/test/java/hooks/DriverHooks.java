@@ -23,12 +23,17 @@ public class DriverHooks {
     @Before
     public void setUp() {
         // URL of your local or remote Selenoid
-        Configuration.remote = "http://localhost:4444/wd/hub"; // Using localhost since we're running tests from outside Docker
+        Configuration.remote = "http://localhost:4444/wd/hub";
         Configuration.browser = "chrome";
         Configuration.browserVersion = "128.0";
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 40000;
         Configuration.headless = false;
+        
+        // Connection settings
+        Configuration.remoteConnectionTimeout = 60000;
+        Configuration.remoteReadTimeout = 60000;
+        Configuration.reportsFolder = "build/reports/tests";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
@@ -41,6 +46,7 @@ public class DriverHooks {
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--disable-gpu");
         chromeOptions.addArguments("--disable-extensions");
+        chromeOptions.addArguments("--remote-allow-origins=*");
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 
         Configuration.browserCapabilities = capabilities;
