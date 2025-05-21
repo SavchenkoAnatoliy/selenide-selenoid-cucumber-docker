@@ -27,7 +27,7 @@ public class DriverHooks {
     @Before
     public void setUp() {
         // URL of your local or remote Selenoid
-        Configuration.remote = "http://127.0.0.1:4444/wd/hub"; // Using container's IP address
+        Configuration.remote = "http://172.17.0.4:4444/wd/hub"; // Using container's IP address
         Configuration.browser = "chrome";
         Configuration.browserVersion = "128.0";
         Configuration.browserSize = "1920x1080";
