@@ -23,7 +23,7 @@ public class DriverHooks {
     @Before
     public void setUp() {
         // URL of your local or remote Selenoid
-        Configuration.remote = "http://selenoid:4444/wd/hub"; // Using container name instead of localhost
+        Configuration.remote = "http://localhost:4444/wd/hub"; // Using localhost since we're running tests from outside Docker
         Configuration.browser = "chrome";
         Configuration.browserVersion = "128.0";
         Configuration.browserSize = "1920x1080";
