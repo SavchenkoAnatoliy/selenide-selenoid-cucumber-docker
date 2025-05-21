@@ -7,6 +7,10 @@ import io.cucumber.java.Before;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import com.codeborne.selenide.Selenide;
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Scenario;
+
 /**
  * Hooks class for setting up and tearing down the WebDriver before and after each test scenario.
  * This class configures Selenide to use Selenoid as the remote WebDriver.
@@ -23,7 +27,7 @@ public class DriverHooks {
     @Before
     public void setUp() {
         // URL of your local or remote Selenoid
-        Configuration.remote = "http://172.17.0.4:4444/wd/hub"; // Using container's IP address
+        Configuration.remote = "http://127.0.0.1:4444/wd/hub"; // Using container's IP address
         Configuration.browser = "chrome";
         Configuration.browserVersion = "128.0";
         Configuration.browserSize = "1920x1080";
@@ -67,6 +71,12 @@ public class DriverHooks {
     public void tearDown() {
         // Close the WebDriver after each scenario
         WebDriverRunner.closeWebDriver();
+    }
+
+    // Действия совершаемые после каждого шага
+    @AfterStep
+    public void takeScreenShotAfterStep(Scenario scenario) {
+        Selenide.screenshot(System.currentTimeMillis() + "steps");
     }
 
 }

@@ -50,4 +50,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    include 'tests/CucumberRunnerTest.class'
+    
+    // Configure Allure
+    systemProperty 'allure.results.directory', 'build/allure-results'
 }

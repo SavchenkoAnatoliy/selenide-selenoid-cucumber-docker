@@ -12,9 +12,5 @@ import io.cucumber.java.Scenario;
  * This class enhances the test reporting by providing visual feedback on the state of the application at each step.
  */
 public class AfterStepHooks {
-    // Действия совершаемые после каждого шага
-    @AfterStep
-    public void takeScreenShotAfterStep(Scenario scenario) {
-        Selenide.screenshot(System.currentTimeMillis() + "steps");
-    }
+
 }

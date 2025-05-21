@@ -3,6 +3,7 @@ Feature: Бот для сайта клавагонки
   Background: Я нахожусь на главной странице сайта
     Given Открываем сайт "https://klavogonki.ru/go?type=normal"
 
+  @SCRUM-1
   Scenario: Бот запускает игру и вводит сам слова
     When Начинаем игру
     And Ждем начало игры
