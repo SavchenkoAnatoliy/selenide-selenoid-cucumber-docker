@@ -23,7 +23,7 @@ public class DriverHooks {
     @Before
     public void setUp() {
         // URL of your local or remote Selenoid
-        Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.remote = "http://172.17.0.4:4444/wd/hub"; // Using container's IP address
         Configuration.browser = "chrome";
         Configuration.browserVersion = "128.0";
         Configuration.browserSize = "1920x1080";
@@ -34,6 +34,11 @@ public class DriverHooks {
         Configuration.remoteConnectionTimeout = 60000;
         Configuration.remoteReadTimeout = 60000;
         Configuration.reportsFolder = "build/reports/tests";
+        
+        // Additional Selenide settings
+        Configuration.driverManagerEnabled = false;
+        Configuration.screenshots = true;
+        Configuration.savePageSource = false;
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
@@ -47,6 +52,8 @@ public class DriverHooks {
         chromeOptions.addArguments("--disable-gpu");
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--remote-allow-origins=*");
+        chromeOptions.addArguments("--disable-web-security");
+        chromeOptions.addArguments("--allow-running-insecure-content");
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 
         Configuration.browserCapabilities = capabilities;
