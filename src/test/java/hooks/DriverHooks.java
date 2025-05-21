@@ -3,83 +3,57 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Optional;
-
+/**
+ * Hooks class for setting up and tearing down the WebDriver before and after each test scenario.
+ * This class configures Selenide to use Selenoid as the remote WebDriver.
+ * It handles the initialization and cleanup of the WebDriver for each test.
+ * The class ensures that the WebDriver is properly configured for remote execution using Selenoid.
+ * It is responsible for managing the lifecycle of the WebDriver, ensuring that it is set up correctly before each test and cleaned up afterward.
+ */
 public class DriverHooks {
-    /**
-     * Настройка таймаута для взаимодействия с элементами перед запуском тестов
-     */
-//    @BeforeEach
-//    public void setUpDriverBeforeScenario() throws MalformedURLException {
-//        String selenoidURL = "http://127.0.0.1:4444/wd/hub";
-//
-//        ChromeOptions chromeOptions = new ChromeOptions();
-//
-//// Кастомные опции для Selenoid
-//        MutableCapabilities selenoidOptions = new MutableCapabilities();
-//        selenoidOptions.setCapability("enableVNC", true);
-//        selenoidOptions.setCapability("enableVideo", true);
-//        selenoidOptions.setCapability("videoName", "test-video.mp4");
-//        selenoidOptions.setCapability("screenResolution", "1920x1080x24");
-//
-//// Вложить selenoid options в chrome options
-//        chromeOptions.setCapability("selenoid:options", selenoidOptions);
-//
-//// Настроить версию браузера (чтобы не пытался запускать chrome_75, которого нет)
-//        chromeOptions.setBrowserVersion("105.0"); // Укажи реально доступную версию браузера в selenoid
-//
-//        WebDriver driver = new RemoteWebDriver(new URL(selenoidURL), chromeOptions);
-//        driver.manage().window().setSize(new Dimension(1920, 1024));
-//        WebDriverRunner.setWebDriver(driver);
-//    }
 
+    /**
+     * Sets up the WebDriver configuration before each test scenario.
+     * Configures Selenide to use Selenoid as the remote WebDriver.
+     */
     @Before
     public void setUp() {
         // URL of your local or remote Selenoid
-        Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.remote = "http://selenoid:4444/wd/hub"; // Using container name instead of localhost
         Configuration.browser = "chrome";
         Configuration.browserVersion = "128.0";
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 40000;
-        Configuration.headless = false; // Needed to view VNC session
+        Configuration.headless = false;
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("enableVNC", true); // allow remote viewing
-        capabilities.setCapability("enableVideo", false); // enable if you have video recording in Selenoid
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", false);
         capabilities.setCapability("screenResolution", "1920x1080x24");
+        
+        // Additional Chrome options for better compatibility
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments("--disable-dev-shm-usage");
+        chromeOptions.addArguments("--disable-gpu");
+        chromeOptions.addArguments("--disable-extensions");
+        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 
         Configuration.browserCapabilities = capabilities;
     }
 
+    /**
+     * Tears down the WebDriver after each test scenario.
+     * Closes the WebDriver to free up resources.
+     */
     @After
     public void tearDown() {
+        // Close the WebDriver after each scenario
         WebDriverRunner.closeWebDriver();
     }
 
 }
-
-
-
-
-
-//    @BeforeEach
-//    public void initDriver() throws IOException {
-//        final String url = "http://192.168.90.245:4444/wd/hub";
-//        WebDriver driver = new RemoteWebDriver(new URL(url), DesiredCapabilities.chrome());
-//        driver.manage().window().setSize(new Dimension(1920,1024));
-//        WebDriverRunner.setWebDriver(driver);
-//    }
-

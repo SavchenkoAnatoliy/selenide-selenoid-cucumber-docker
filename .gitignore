@@ -5,3 +5,63 @@
 
 /allure-results/
 .idea
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+logs/
+work/selenoid/logs/
+
+# Selenoid
+work/selenoid/video/
+work/selenoid/logs/
+
+# Jenkins
+work/jenkins/
+
+# Jira
+work/jira/
+
+# Allure
+allure-results/
+allure-report/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Test reports
+test-output/
+reports/
+target/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
